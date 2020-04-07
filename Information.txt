@@ -1,0 +1,52 @@
+BatchInternal.py
+========================================================
+1.Takes processed_encoded.csv
+2.Takes mixture_model.csv
+3.Outputs internal_validation.csv
+
+
+1.Takes processed_encoded.csv
+2.Takes mixture_model.csv
+3.Outputs validation_validation.csv
+
+
+
+Indexes To Apply
+--------------------
+1.Sil , Db, CVNN, Xb , Dunns , SD
+
+
+
+Steps
+--------------------
+1.Rename processed encode to data.csv and put inside /dataset/    (This file should not contain any column headings)
+2.Add the word data to the clustering result and put in /clustering result/ 	(This file should not contain any column headings)
+	a.change "mixture_model.csv" (received from total_results.csv during clustering) to "mixture_model_data.csv"
+	b.change "graph_closure.csv" (received from total_results.csv during clustering) to "graph_closure_data.csv"
+
+	Note:
+	a.Graph Closure(or Mixture Model) columns that assign the same label to each member will give error.Remove these columns
+	b.Graph Closure(or Mixture Model) columns that do not assign members to a certain group will give error.Remove these columns
+		Example : Graph closure 0.7 gives 20 clusters but there is no one in cluster 2.So it assigned members to cluster 1 and 3.But
+			  no one to 2.
+	
+3.Output file will be in /internal result/
+
+
+
+
+composite_validation.py(4 results required - F1,F2,F3)
+======================================================
+1.Takes internal validation result as input
+2.Merge folder 1(mixture_mode internal validation result and graph closure internal validation result )
+3.Merge folder 2(mixture_mode internal validation result and graph closure internal validation result )
+4.Merge folder 3(mixture_mode internal validation result and graph closure internal validation result )
+5.Merge folder 1,2,3
+5.Make sure to indicate the index of the indexes(on the far right of excel sheet) in (line 6) 
+	a.Open csv(excel) 
+	b.Go to file>options>formulas>
+	c.Under working with formulas, tick "RIC1 reference style"
+	d.Go back and check column of CVM indices and subtract 1(because we count from 0)
+	e.Give appropriate name for output file on line 104 
+
+
